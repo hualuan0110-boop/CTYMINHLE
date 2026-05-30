@@ -771,14 +771,14 @@ document.addEventListener('mouseleave', (e) => {
     }
 });
 
-// 2. MOBILE: Khi người dùng chuyển sang tab khác (thu nhỏ trình duyệt)
+// 2. MOBILE: Khi người dùng chuyển sang tab khác
 document.addEventListener('visibilitychange', () => {
     if (document.hidden && !exitShown) {
         showExitPopup();
     }
 });
 
-// 3. MOBILE: Khi người dùng cuộn lên đầu trang (đã đọc xong nội dung)
+// 3. MOBILE: Khi người dùng cuộn lên đầu trang
 let scrollStart = 0;
 window.addEventListener('scroll', () => {
     const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
@@ -788,7 +788,7 @@ window.addEventListener('scroll', () => {
     scrollStart = scrollTop;
 });
 
-// 4. MOBILE: Khi người dùng cố gắng kéo xuống để refresh (cạnh trên trình duyệt)
+// 4. MOBILE: Khi người dùng kéo xuống để refresh
 let touchStartY = 0;
 document.addEventListener('touchstart', (e) => {
     touchStartY = e.touches[0].clientY;
@@ -799,6 +799,13 @@ document.addEventListener('touchmove', (e) => {
         showExitPopup();
     }
 });
+
+// 5. Hiện popup sau 5 giây ở lại trang (THÊM ĐOẠN NÀY)
+setTimeout(() => {
+    if (!exitShown) {
+        showExitPopup();
+    }
+}, 5000);
 
 function showExitPopup() {
     if (exitShown) return;
@@ -814,7 +821,6 @@ function captureExitPhone() {
     const phone = document.getElementById('exitPhone').value; 
     if (phone && phone.match(/[0-9]{9,11}/)) { 
         alert('🎉 Cảm ơn bạn! Mã giảm giá -15% đã được gửi qua SMS. Hãy kiểm tra và đặt hàng ngay!');
-        // Gửi số điện thoại về Google Sheet
         const formData = new FormData();
         formData.append('fullname', 'Khách hàng rời trang');
         formData.append('phone', phone);
