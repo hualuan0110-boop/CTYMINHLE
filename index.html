@@ -292,6 +292,43 @@
         .lightbox { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.9); display: flex; align-items: center; justify-content: center; z-index: 3000; opacity: 0; pointer-events: none; transition: 0.3s; }
         .lightbox.show { opacity: 1; pointer-events: auto; }
         .lightbox img { max-width: 95%; max-height: 90vh; border-radius: 8px; }
+    /* ===== THU GỌN HEADER TRÊN MOBILE ===== */
+@media (max-width: 550px) {
+    /* Thu nhỏ header */
+    .header {
+        padding: 6px 0;
+    }
+    
+    .header .container {
+        gap: 8px;
+    }
+    
+    /* Thu nhỏ logo */
+    .logo h1 {
+        font-size: 0.75rem;
+    }
+    
+    /* Ẩn dòng phụ "Hơn 20 năm đồng hành..." trên mobile */
+    .logo p {
+        display: none;
+    }
+    
+    /* Thu nhỏ nút bấm */
+    .btn-call, .btn-order {
+        padding: 5px 10px;
+        font-size: 0.65rem;
+    }
+    
+    .btn-call i, .btn-order i {
+        font-size: 0.7rem;
+    }
+    
+    /* Thu nhỏ thanh topbar */
+    .topbar {
+        font-size: 0.6rem;
+        padding: 5px 0;
+    }
+}
     </style>
 </head>
 <body>
@@ -675,7 +712,6 @@ setInterval(updateCountdown, 1000); updateCountdown();
 function updateSocialProof() {
     const buyCount = 137 + Math.floor(Math.random() * 15);
     document.getElementById('buyCount').innerText = buyCount;
-    document.getElementById('stickyText').innerHTML = `🔥 Giảm giá chỉ còn ${Math.floor(Math.random() * 2) + 1} giờ ${Math.floor(Math.random() * 60)} phút - ${buyCount} người đã mua hôm nay`;
 }
 updateSocialProof();
 setInterval(updateSocialProof, 30000);
@@ -807,12 +843,6 @@ function showRandomOrder() {
 setInterval(showRandomOrder, 12000); 
 setTimeout(showRandomOrder, 3000);
 
-// ================== STICKY BANNER ==================
-window.addEventListener('scroll', () => { 
-    const sticky = document.getElementById('bottomSticky'); 
-    if (window.scrollY > 300) sticky.classList.add('show'); 
-    else sticky.classList.remove('show'); 
-});
 
 // ================== VIDEO FUNCTIONS ==================
 function toggleSound(videoId, btn) { 
