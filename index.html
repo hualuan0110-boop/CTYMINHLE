@@ -880,6 +880,42 @@ renderProducts();
 renderCertificates(); 
 renderTestimonials(); 
 renderFaqs();
+// ================== POPUP ZALO SAU 10 GIÂY ==================
+setTimeout(() => {
+    // Tạo popup zalo
+    const zaloPopup = document.createElement('div');
+    zaloPopup.id = 'zaloPopup';
+    zaloPopup.innerHTML = `
+        <div style="position: fixed; bottom: 100px; left: 50%; transform: translateX(-50%); background: white; border-radius: 16px; padding: 20px; box-shadow: 0 10px 40px rgba(0,0,0,0.2); z-index: 2001; width: 90%; max-width: 320px; text-align: center; border-left: 5px solid #0068ff; animation: slideUp 0.3s ease;">
+            <button onclick="closeZaloPopup()" style="position: absolute; top: 10px; right: 15px; background: none; border: none; font-size: 20px; cursor: pointer; color: #94a3b8;">&times;</button>
+            <i class="fab fa-zalo" style="font-size: 48px; color: #0068ff; margin-bottom: 10px;"></i>
+            <h3 style="color: #0b3b5f; margin-bottom: 10px;">💬 GỬI TIN NHẮN ZALO</h3>
+            <p style="color: #475569; font-size: 14px; margin-bottom: 15px;">Chat với chúng tôi ngay để được tư vấn miễn phí và nhận ưu đãi đặc biệt!</p>
+            <a href="https://zalo.me/0964353335" target="_blank" style="display: inline-block; background: #0068ff; color: white; padding: 12px 24px; border-radius: 50px; text-decoration: none; font-weight: 700; margin-top: 10px;">
+                <i class="fab fa-zalo"></i> GỬI TIN NHẮN NGAY
+            </a>
+            <p style="font-size: 11px; color: #94a3b8; margin-top: 12px;">Phản hồi trong 5 phút</p>
+        </div>
+    `;
+    document.body.appendChild(zaloPopup);
+    
+    // Thêm animation CSS
+    const style = document.createElement('style');
+    style.textContent = `
+        @keyframes slideUp {
+            from { transform: translateX(-50%) translateY(50px); opacity: 0; }
+            to { transform: translateX(-50%) translateY(0); opacity: 1; }
+        }
+    `;
+    document.head.appendChild(style);
+}, 10000);
+
+// Hàm đóng popup zalo
+function closeZaloPopup() {
+    const popup = document.getElementById('zaloPopup');
+    if (popup) popup.remove();
+}
+
 </script>
 </body>
 </html>
