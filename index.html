@@ -657,11 +657,32 @@ function openProductModal(idx) {
     document.getElementById('mProductZaloBtn').href = `https://zalo.me/0964353335?text=${encodeURIComponent('Tôi muốn mua: ' + p.name)}`;
     document.getElementById('mProductOrderBtn').onclick = () => { document.getElementById('productModal').classList.remove('show'); selectProduct(p.name); };
     document.getElementById('productModal').classList.add('show');
+    
+    // Meta Pixel - ViewContent
+    if (typeof fbq !== 'undefined') {
+        fbq('track', 'ViewContent', {
+            content_name: p.name,
+            content_type: 'product',
+            value: typeof p.price === 'number' ? p.price : 0,
+            currency: 'VND'
+        });
+    }
 }
 
 function closeProductModal(e) { if (e && e.target && e.target.id === 'productModal') document.getElementById('productModal').classList.remove('show'); }
-function selectProduct(name) { document.getElementById('productInterest').value = name; document.getElementById('dangky').scrollIntoView({ behavior: 'smooth' }); }
-
+function selectProduct(name) { 
+    document.getElementById('productInterest').value = name; 
+    
+    // Meta Pixel - AddToCart
+    if (typeof fbq !== 'undefined') {
+        fbq('track', 'AddToCart', {
+            content_name: name,
+            content_type: 'product'
+        });
+    }
+    
+    document.getElementById('dangky').scrollIntoView({ behavior: 'smooth' }); 
+}
 function renderCertificates() { 
     const grid = document.getElementById('certGrid'); 
     grid.innerHTML = ''; 
@@ -769,6 +790,17 @@ document.getElementById('leadForm').addEventListener('submit', function(e) {
         if (data.result === 'success') { 
             statusDiv.innerHTML = "✅ Gửi thành công! Kỹ sư sẽ liên hệ trong 5 phút."; 
             statusDiv.classList.add('success');
+            
+            // Meta Pixel - Purchase
+            if (typeof fbq !== 'undefined') {
+                fbq('track', 'Purchase', {
+                    value: 0,
+                    currency: 'VND',
+                    content_name: document.getElementById('productInterest').value,
+                    quantity: parseInt(document.getElementById('quantity').value) || 1
+                });
+            }
+            
             document.getElementById('leadForm').reset(); 
         } else { 
             statusDiv.innerHTML = "❌ Lỗi: " + (data.error || "Thử lại."); 
