@@ -463,6 +463,7 @@
                     <div class="form-group"><i class="fas fa-phone"></i><input type="tel" id="phone" class="form-control" placeholder="Số điện thoại *" required autocomplete="tel"></div>
                     <div class="form-group"><i class="fas fa-map-marker-alt"></i><input type="text" id="address" class="form-control" placeholder="Tỉnh / Thành phố" autocomplete="address-level1"></div>
                     <div class="form-group"><i class="fas fa-box-open"></i><select id="productInterest" class="form-control"><option value="">-- Chọn sản phẩm quan tâm --</option></select></div>
+                    <div class="form-group"><i class="fas fa-calculator"></i><input type="number" id="quantity" class="form-control" placeholder="Số lượng (hộp/kg/con)" value="1" min="1" style="padding-left: 38px;"></div>
                     <div class="form-group"><i class="fas fa-comment-alt"></i><textarea id="message" class="form-control" placeholder="Lời nhắn (diện tích ao, tình trạng tôm...)"></textarea></div>
                     <button type="submit" class="btn-submit"><i class="fas fa-paper-plane"></i> GỬI ĐĂNG KÝ - NHẬN QUÀ TẶNG NGAY</button>
                 </form>
@@ -741,7 +742,8 @@ document.getElementById('leadForm').addEventListener('submit', function(e) {
     formData.append('fullname', fullname); 
     formData.append('phone', phone); 
     formData.append('address', document.getElementById('address').value); 
-    formData.append('product', document.getElementById('productInterest').value); 
+    formData.append('product', document.getElementById('productInterest').value);
+    formData.append('quantity', document.getElementById('quantity').value); 
     formData.append('message', document.getElementById('message').value || ''); 
     
     fetch(CONFIG.webhookUrl, { method: 'POST', body: formData })
